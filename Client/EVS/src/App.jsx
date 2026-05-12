@@ -9,12 +9,12 @@ import LoginPage from './Pages/LoginPage'
 function App() {
   const [currentView, setCurrentView] = useState("LandingPage");
 
-  return (
-    <body>
-      {currentView === "LandingPage" && <LandingPage setView={setCurrentView} />}
-      {currentView === "Login" && <LoginPage setView={setCurrentView} />}
-    </body>
-  );
+return (
+  <body>
+    {currentView === "LandingPage" && <LandingPage setView={setCurrentView} />}
+    {currentView === "Login" && <LoginPage setView={setCurrentView} />}
+  </body>
+);
   
 }
 
