@@ -1,0 +1,23 @@
+services:
+  # Serviço da Base de Dados
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb_container
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db  # Garante a persistência dos dados (Aula 10)
+
+  # Serviço do seu Backend FastAPI
+  backend:
+    build: .
+    container_name: fastapi_backend
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mongodb              # O backend só arranca depois da DB estar pronta
+    environment:
+      - MONGO_URL=mongodb://mongodb:27017/
+
+volumes:
+  mongo_data:                # Volume nomeado para não perder os votos/users
