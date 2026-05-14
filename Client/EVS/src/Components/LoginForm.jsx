@@ -1,20 +1,15 @@
-import { useAuth } from "../hooks/usestates";
+import useAuth  from "../hooks/usestates";
 import { useState } from "react";
 
-function LoginForm({setView}){
-    const { login } = useAuth();
+function LoginForm({ setView, login ,error}){
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const result = await login(username, password);
-        
-        if (result.success) {
-            setView("LandingPage"); // Redireciona após login bem-sucedido
-        } else {
-            setError(result.message);
+        const sucesso = await login(username, password); // Usa o login que veio do App
+        if (sucesso) {
+            setView("LandingPage");
         }
     };
     return (

@@ -7,11 +7,11 @@ import LandingPage from './Pages/LandingPage'
 import AuthPage from './Pages/AuthPage'
 import Navbar from './Components/Navbar'
 import DotField from './Components/DotField'
-import { useAuth } from './hooks/usestates'
+import  useAuth  from './hooks/usestates'
 
 function App() {
   const [currentView, setCurrentView] = useState("LandingPage");
-  const { isLoggedIn, user, loading } = useAuth();
+  const { user, login, isLoggedIn, loading, error, logout} = useAuth();
 
   if (loading) return <div>A carregar...</div>;
 
@@ -33,8 +33,9 @@ return (
         glowColor="rgba(0, 0, 0, 0)"
       />
     </div>
-   {currentView === "LandingPage" && (<LandingPage setView={setCurrentView} isLoggedIn={isLoggedIn} user={user} />)}
-    {(currentView === "Login" || currentView === "SignUp") && <AuthPage setView={setCurrentView} currentView={currentView} />}
+   {currentView === "LandingPage" && (<LandingPage setView={setCurrentView} isLoggedIn={isLoggedIn} user={user} onlogout={logout} />)}
+   {(currentView === "Login" || currentView === "SignUp") && (<AuthPage setView={setCurrentView} currentView={currentView}  onLogin={login} authError={error}/>
+)}
   </section>
 );
   

@@ -1,10 +1,12 @@
-function UserMenu () {
+function UserMenu ({onlogout}) {
+    
+
     return (
        <ul className="navbar-nav ms-auto">
         <li className="nav-item">
-            <a className="nav-link font-monospace">
-                YOU ARE LOGGED IN.
-            </a>    
+            <button className="nav-link font-monospace" onClick={onlogout}>
+                Log out
+            </button>    
         </li>
        </ul>
     )
