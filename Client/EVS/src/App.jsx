@@ -7,7 +7,7 @@ import LandingPage from './Pages/LandingPage'
 import AuthPage from './Pages/AuthPage'
 import Navbar from './Components/Navbar'
 import DotField from './Components/DotField'
-import  useAuth  from './hooks/usestates'
+import  useAuth  from './hooks/usesAuth'
 import PollsPage from './Pages/PollsPage'
 
 function App() {

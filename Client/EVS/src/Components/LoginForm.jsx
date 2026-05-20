@@ -1,4 +1,4 @@
-import useAuth  from "../hooks/usestates";
+import useAuth  from "../hooks/usesAuth";
 import { useState } from "react";
 
 function LoginForm({ setView, login ,error}){

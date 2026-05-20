@@ -1,5 +1,5 @@
 import { useState } from "react";
-import useAuth  from "../hooks/usestates";
+import useAuth  from "../hooks/usesAuth";
 
 function SignUpForm({setView , signup, error}){
     const [username, setUsername] = useState('');
