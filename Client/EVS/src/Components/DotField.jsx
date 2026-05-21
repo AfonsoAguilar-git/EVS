@@ -1,6 +1,8 @@
+// component importado do react bits
+
 import { useEffect, useRef, memo } from 'react';
 
-import './DotField.css';
+import '../index.css';
 
 const TWO_PI = Math.PI * 2;
 
