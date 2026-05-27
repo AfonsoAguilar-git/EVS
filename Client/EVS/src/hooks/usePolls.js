@@ -34,17 +34,37 @@ function usePolls(user){
                 method: "POST",
                 body: JSON.stringify({title,options,creator_id,creator_name})
             });
+        
+            const data = await response.json();
+            return data;
+        
         }
         catch(err){
             setError(err.message);
         }
+    }
 
+    async function closepoll(pollId, userId){
+        try{
+            const response = await fetch(`http://localhost:8000/polls/${pollId}/close?user_id=${userId}`,
+                {
+                headers:{
+                    "Content-Type": "application/json"
+                },
+                method: "PATCH",
+            });
+        
+        
         const data = await response.json();
         return data;
+        }
+        catch(err){
+            setError(err.message);
+        }
     }
     
 
-    return {polls,pollsloading, pollserror, getpolls, createpoll}
+    return {polls,pollsloading, pollserror, getpolls, createpoll, closepoll}
 }
 
 export default usePolls

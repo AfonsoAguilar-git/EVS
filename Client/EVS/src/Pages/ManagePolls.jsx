@@ -2,7 +2,7 @@ import Navbar from "../Components/Navbar"
 import ManagePollcard from "../Components/ManagePollCard"
 import { useEffect } from "react";
 
-function PollsPage({setView, isLoggedIn, onlogout, user, polls, ongetpolls}){
+function PollsPage({setView, isLoggedIn, onlogout, user, polls, ongetpolls, onclosepoll}){
     useEffect(() => {
         ongetpolls();
         }, []);
@@ -19,7 +19,7 @@ function PollsPage({setView, isLoggedIn, onlogout, user, polls, ongetpolls}){
             <nav className="container-fluid p-4 pt-0">
                 <ul className="row m-0 p-0 row-cols-1 row-cols-sm-2 row-cols-lg-3 g-5">
                     {mypolls.map(poll => (
-                        <ManagePollcard title={poll.title} creator={poll.creator_name}/>
+                        <ManagePollcard pollid={poll._id} title={poll.title} creator={poll.creator_name} userid={user.user_id} onclosepoll={onclosepoll}/>
                     ))}
                 </ul>
             </nav>

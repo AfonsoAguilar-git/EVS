@@ -25,7 +25,7 @@ function PollForm({setView, user, oncreatepoll}){
             return;
         }
         try{
-        oncreatepoll(title,validOptions, user.user_id,user.username)
+        await oncreatepoll(title,validOptions, user.user_id,user.username)
         setView("ManagePolls");
 
         }catch(err){
