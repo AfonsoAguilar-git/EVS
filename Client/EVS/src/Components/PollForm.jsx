@@ -3,12 +3,17 @@ import { useState } from "react";
 function PollForm({setView, user, oncreatepoll}){ 
 
     const [title, setTitle] = useState("");
-    const [polloptions, setPolloptions] = useState(["", "", "", ""]);
+    const [polloptions, setPolloptions] = useState(["", ""]);
 
     const handleOptionChange = (index, value) => {
         const updatedOptions = [...polloptions]; 
         updatedOptions[index] = value;          
         setPolloptions(updatedOptions);         
+    };
+
+    const addOptionField = (e) => {
+    e.preventDefault();
+    setPolloptions([...polloptions, ""]);
     };
 
     async function handleSubmit(e){
@@ -38,11 +43,18 @@ function PollForm({setView, user, oncreatepoll}){
             <div className="mt-2">
                 <label className="form-label">Options</label>
                 <div className="d-flex flex-column gap-2">
-                    <input type="text" className="form-control" placeholder="Option1"value={polloptions[0]} onChange={(e) => handleOptionChange(0, e.target.value)} />
-                    <input type="text" className="form-control" placeholder="Option2"value={polloptions[1]} onChange={(e) => handleOptionChange(1, e.target.value)}/>
-                    <input type="text" className="form-control" placeholder="Option3"value={polloptions[2]} onChange={(e) => handleOptionChange(2, e.target.value)}/>
-                    <input type="text" className="form-control" placeholder="etc..." value={polloptions[3]} onChange={(e) => handleOptionChange(3, e.target.value)}/>
-                    <button className="btn btn-link text-dark text-decoration-none text-start">+ Add option</button>
+                    {polloptions.map((option, index) => (
+                        <input 
+                            key={index}
+                            type="text" 
+                            className="form-control" 
+                            placeholder={`Option ${index + 1}`}
+                            value={option} 
+                            onChange={(e) => handleOptionChange(index, e.target.value)} 
+                            required={index < 2}
+                        />
+                    ))}
+                    <button className="btn btn-link text-dark text-decoration-none text-start" onClick={addOptionField}>+ Add option</button>
                 </div>
             </div>
             <div className="d-flex flex-column justify-content-end gap-2 pt-2">

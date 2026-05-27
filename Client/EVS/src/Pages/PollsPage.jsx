@@ -15,7 +15,7 @@ function PollsPage({setView, isLoggedIn, onlogout, polls, ongetpolls}){
             <nav className="container-fluid p-4 pt-0">
                 <ul className="row m-0 p-0 row-cols-1 row-cols-sm-2 row-cols-lg-3 g-5">
                     {polls.map(poll => (
-            <Pollcard title={poll.title} creator={poll.creator_name}/>
+                        <Pollcard title={poll.title} creator={poll.creator_name}/>
                     ))}
 
                     

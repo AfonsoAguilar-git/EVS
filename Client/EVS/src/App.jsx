@@ -42,7 +42,7 @@ return (
     {(currentView === "Login" || currentView === "SignUp") && (<AuthPage setView={setCurrentView} currentView={currentView}  onLogin={login} onSignup={signup} authError={error}/>)}
     {currentView === "PollsPage" && (<PollsPage setView={setCurrentView} isLoggedIn={isLoggedIn} user={user} onlogout={logout} polls={polls} ongetpolls={getpolls} />)}
     {currentView === "CreatePolls" && (<CreatePolls setView={setCurrentView} isLoggedIn={isLoggedIn} user={user} onlogout={logout} user={user} oncreatepoll={createpoll} />)}
-    {currentView === "ManagePolls" && (<ManagePolls setView={setCurrentView} isLoggedIn={isLoggedIn} user={user} onlogout={logout}/>)}
+    {currentView === "ManagePolls" && (<ManagePolls setView={setCurrentView} isLoggedIn={isLoggedIn} user={user} onlogout={logout} user={user} polls={polls} ongetpolls={getpolls} />)}
  </section>
 );
   
