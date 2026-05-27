@@ -14,8 +14,8 @@ function LoginForm({ setView, login ,error}){
     };
     return (
     <form className="container-fluid px-4 pb-3" onSubmit={handleSubmit}>
-        <div class="container-fluid pt-4" >
-            <h1 class="text-center fw-bold">Login</h1>
+        <div className="container-fluid pt-4" >
+            <h1 className="text-center fw-bold">Login</h1>
         </div>
 
         {error && <div className="alert alert-danger">{error}</div>}

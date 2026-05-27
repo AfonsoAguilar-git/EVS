@@ -4,6 +4,7 @@ from pydantic import BaseModel
 from typing import List, Optional
 from Server.database import users_collection, polls_collection
 from bson import ObjectId
+import random
 
 app = FastAPI(title="SVE - Sistema de Votação Eletrónica")
 
@@ -13,10 +14,10 @@ app = FastAPI(title="SVE - Sistema de Votação Eletrónica")
 # Configuração do CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"], # URL onde o seu React está a correr
+    allow_origins=["http://localhost:5173"], 
     allow_credentials=True,
-    allow_methods=["*"], # Permite todos os métodos (POST, GET, etc.)
-    allow_headers=["*"], # Permite todos os headers
+    allow_methods=["*"], 
+    allow_headers=["*"], 
 )
 
 
@@ -29,11 +30,20 @@ class PollCreate(BaseModel):
     title: str
     options: List[str]
     creator_id: int
+    creator_name: str
 
 class LoginData(BaseModel):
     username: str
     password: str
 
+class Poll(BaseModel):
+    poll_id: Optional[int] = None
+    title: str
+    creator_id: int
+    creator_name: str
+    options: List[str]
+    voters: List[int]
+    is_active: bool
 
 
 
@@ -42,7 +52,6 @@ async def create_user(user_in: User):
     if users_collection.find_one({"username": user_in.username}):
         raise HTTPException(status_code=400, detail="Este utilizador já existe")
     
-    import random
     user_dict = {
         "user_id": random.randint(1000, 9999),
         "username": user_in.username,
@@ -75,8 +84,10 @@ async def create_poll(poll: PollCreate):
     formatted_options = [{"name": opt, "votes": 0} for opt in poll.options]
     
     new_poll = {
+        "poll_id": random.randint(1000, 9999),
         "title": poll.title,
         "creator_id": poll.creator_id,
+        "creator_name":poll.creator_name,
         "options": formatted_options,
         "voters": [], 
         "is_active": True

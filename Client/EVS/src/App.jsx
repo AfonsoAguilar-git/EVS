@@ -11,10 +11,12 @@ import  useAuth  from './hooks/usesAuth'
 import PollsPage from './Pages/PollsPage'
 import CreatePolls from './Pages/CreatePolls'
 import ManagePolls from './Pages/ManagePolls'
+import usePolls from './hooks/usePolls'
 
 function App() {
   const [currentView, setCurrentView] = useState("LandingPage");
   const { user, signup, login, isLoggedIn, loading, error, logout} = useAuth();
+  const {polls, getpolls, pollsloading, pollserror, createpoll} = usePolls();
 
   if (loading) return <div>A carregar...</div>;
 
@@ -38,8 +40,8 @@ return (
     </div>
     {currentView === "LandingPage" && (<LandingPage setView={setCurrentView} isLoggedIn={isLoggedIn} user={user} onlogout={logout} />)}
     {(currentView === "Login" || currentView === "SignUp") && (<AuthPage setView={setCurrentView} currentView={currentView}  onLogin={login} onSignup={signup} authError={error}/>)}
-    {currentView === "PollsPage" && (<PollsPage setView={setCurrentView} isLoggedIn={isLoggedIn} user={user} onlogout={logout}/>)}
-    {currentView === "CreatePolls" && (<CreatePolls setView={setCurrentView} isLoggedIn={isLoggedIn} user={user} onlogout={logout}/>)}
+    {currentView === "PollsPage" && (<PollsPage setView={setCurrentView} isLoggedIn={isLoggedIn} user={user} onlogout={logout} polls={polls} ongetpolls={getpolls} />)}
+    {currentView === "CreatePolls" && (<CreatePolls setView={setCurrentView} isLoggedIn={isLoggedIn} user={user} onlogout={logout} user={user} oncreatepoll={createpoll} />)}
     {currentView === "ManagePolls" && (<ManagePolls setView={setCurrentView} isLoggedIn={isLoggedIn} user={user} onlogout={logout}/>)}
  </section>
 );
