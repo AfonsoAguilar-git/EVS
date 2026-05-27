@@ -7,15 +7,18 @@ function UserMenu ({onlogout , setView}) {
             <button className="nav-link text-decoration-none text-dark " href="" onClick={() => setView("PollsPage")}>Find polls</button>
         </li>
         <li className="nav-item">
-            <a className="nav-link text-decoration-none text-dark">create poll</a>
+            <button className="nav-link text-decoration-none text-dark" href="" onClick={() => setView("CreatePolls")}>create poll</button>
         </li>
         <li className="nav-item">
-            <a className="nav-link text-decoration-none text-dark">manage your polls</a> 
+            <button className="nav-link text-decoration-none text-dark" href="" onClick={() => setView("ManagePolls")}>manage your polls</button> 
         </li>
         <li className="nav-item">
-            <button type="button" className="btn btn-dark my-1 my-md-0 mx-md-1" onClick={onlogout}>
+            <button className="btn btn-dark my-1 my-md-0 mx-md-1" onClick={ () => {
+                onlogout(); 
+                setView("LandingPage")
+                }}>
                 Log out
-            </button>  
+            </button>
         </li>
        </ul>
     )

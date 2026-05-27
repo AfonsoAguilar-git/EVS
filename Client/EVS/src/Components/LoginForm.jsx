@@ -9,7 +9,7 @@ function LoginForm({ setView, login ,error}){
         e.preventDefault();
         const sucesso = await login(username, password); // Usa o login que veio do App
         if (sucesso) {
-            setView("LandingPage");
+            setView("PollsPage");
         }
     };
     return (

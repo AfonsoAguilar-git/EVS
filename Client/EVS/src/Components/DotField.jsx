@@ -106,6 +106,12 @@ const DotField = memo(({
       m.prevY = m.y;
     }
 
+    function updateOffset() {
+      const rect = canvas.parentElement.getBoundingClientRect();
+      sizeRef.current.offsetX = rect.left + window.scrollX;
+      sizeRef.current.offsetY = rect.top + window.scrollY;
+    }
+
     const speedInterval = setInterval(updateMouseSpeed, 20);
 
     let frameCount = 0;
@@ -209,6 +215,7 @@ const DotField = memo(({
 
     doResize();
     window.addEventListener('resize', resize);
+    window.addEventListener('scroll', updateOffset, { passive: true });
     window.addEventListener('mousemove', onMouseMove, { passive: true });
     rafRef.current = requestAnimationFrame(tick);
 
@@ -222,6 +229,7 @@ const DotField = memo(({
       clearInterval(speedInterval);
       clearTimeout(resizeTimer);
       window.removeEventListener('resize', resize);
+      window.removeEventListener('scroll', updateOffset);
       window.removeEventListener('mousemove', onMouseMove);
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps

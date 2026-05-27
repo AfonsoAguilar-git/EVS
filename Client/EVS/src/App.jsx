@@ -9,6 +9,8 @@ import Navbar from './Components/Navbar'
 import DotField from './Components/DotField'
 import  useAuth  from './hooks/usesAuth'
 import PollsPage from './Pages/PollsPage'
+import CreatePolls from './Pages/CreatePolls'
+import ManagePolls from './Pages/ManagePolls'
 
 function App() {
   const [currentView, setCurrentView] = useState("LandingPage");
@@ -34,10 +36,12 @@ return (
         glowColor="rgba(0, 0, 0, 0)"
       />
     </div>
-   {currentView === "LandingPage" && (<LandingPage setView={setCurrentView} isLoggedIn={isLoggedIn} user={user} onlogout={logout} />)}
-   {(currentView === "Login" || currentView === "SignUp") && (<AuthPage setView={setCurrentView} currentView={currentView}  onLogin={login} onSignup={signup} authError={error}/>)}
-   {currentView === "PollsPage" && (<PollsPage setView={setCurrentView} isLoggedIn={isLoggedIn} user={user} onlogout={logout}/>)}
-  </section>
+    {currentView === "LandingPage" && (<LandingPage setView={setCurrentView} isLoggedIn={isLoggedIn} user={user} onlogout={logout} />)}
+    {(currentView === "Login" || currentView === "SignUp") && (<AuthPage setView={setCurrentView} currentView={currentView}  onLogin={login} onSignup={signup} authError={error}/>)}
+    {currentView === "PollsPage" && (<PollsPage setView={setCurrentView} isLoggedIn={isLoggedIn} user={user} onlogout={logout}/>)}
+    {currentView === "CreatePolls" && (<CreatePolls setView={setCurrentView} isLoggedIn={isLoggedIn} user={user} onlogout={logout}/>)}
+    {currentView === "ManagePolls" && (<ManagePolls setView={setCurrentView} isLoggedIn={isLoggedIn} user={user} onlogout={logout}/>)}
+ </section>
 );
   
 }
