@@ -1,8 +1,19 @@
 import { useState } from "react";
 
-function PollGuest({poll, setSelected}){
+function PollGuest({poll, setSelected , onvotepoll, user}){
     const [selectedOption, setSelectedOption] = useState(null);
 
+
+    async function handlevote() {
+        try {
+            await onvotepoll(poll._id, selectedOption, user.user_id);
+            setSelected(null); 
+            
+        } catch (err) {
+            alert("Erro ao submeter o voto.");
+            console.error(err);
+        }
+    }
     return (
         <div className="PollCard modal-content p-4">
             <div className="container-fluid">
@@ -18,8 +29,8 @@ function PollGuest({poll, setSelected}){
                 ))}
             </div>
             <div className="container-fluid d-flex flex-column gap-2">
-                <button className="btn btn-success w-100" disabled={!selectedOption}>Submit vote</button>
-                <button className="btn btn-outline-danger w-100" onClick={() => setSelected(null)}>Cancel</button>
+                <button className="btn btn-success w-100" disabled={!selectedOption} onClick={handlevote}>Submit vote</button>
+                <button className="btn btn-outline-danger w-100" onClick={() => setSelected(null)}>Back</button>
             </div>
         </div>
     )

@@ -14,7 +14,7 @@ import usePolls from './hooks/usePolls'
 function App() {
   const [currentView, setCurrentView] = useState("LandingPage");
   const {user, signup, login, isLoggedIn, loading, error, logout} = useAuth();
-  const {polls, getpolls, pollsloading, pollserror, createpoll, closepoll, openpoll} = usePolls();
+  const {polls, getpolls, pollsloading, pollserror, createpoll, closepoll, openpoll, votepoll,deletepoll} = usePolls();
   const [selectedPoll, setSelectedPoll] = useState(null)
 
   if (loading) return <div>A carregar...</div>;
@@ -39,8 +39,8 @@ function App() {
       </div>
       {currentView === "LandingPage" && (<LandingPage currentView={currentView} setView={setCurrentView} isLoggedIn={isLoggedIn} user={user} onlogout={logout} />)}
       {(currentView === "Login" || currentView === "SignUp") && (<AuthPage setView={setCurrentView} currentView={currentView}  onLogin={login} onSignup={signup} authError={error}/>)}
-      {currentView === "PollsPage" && (<PollsPage currentView={currentView} setView={setCurrentView} isLoggedIn={isLoggedIn} user={user} onlogout={logout} polls={polls} ongetpolls={getpolls} selectedPoll={selectedPoll} setSelected={setSelectedPoll}/>)}
-      {currentView === "ManagePolls" && (<ManagePolls currentView={currentView} setView={setCurrentView} isLoggedIn={isLoggedIn} user={user} onlogout={logout} polls={polls} ongetpolls={getpolls} onclosepoll={closepoll} onopenpoll={openpoll} selectedPoll={selectedPoll} setSelected={setSelectedPoll} createpoll={createpoll}/>)}
+      {currentView === "PollsPage" && (<PollsPage currentView={currentView} setView={setCurrentView} isLoggedIn={isLoggedIn} user={user} onlogout={logout} polls={polls} ongetpolls={getpolls} selectedPoll={selectedPoll} setSelected={setSelectedPoll} onvotepoll={votepoll}/>)}
+      {currentView === "ManagePolls" && (<ManagePolls currentView={currentView} setView={setCurrentView} isLoggedIn={isLoggedIn} user={user} onlogout={logout} polls={polls} ongetpolls={getpolls} onclosepoll={closepoll} onopenpoll={openpoll} selectedPoll={selectedPoll} setSelected={setSelectedPoll} oncreatepoll={createpoll} ondeletepoll={deletepoll} />)}
     </section>
   );
   

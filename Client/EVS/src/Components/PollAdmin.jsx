@@ -1,5 +1,5 @@
 function PollAdmin({poll, setSelected}){
-    const totalVotes = poll.options.reduce((sum, opt) => sum + opt.votes, 0); // isto foi john claudio idk if this works
+    const totalVotes = poll.options.reduce((sum, opt) => sum + opt.votes, 0); 
 
     return (
         <div className="PollCard modal-content p-4">
@@ -15,7 +15,7 @@ function PollAdmin({poll, setSelected}){
             </div>
             <div className="container-fluid d-flex flex-column gap-2 mb-4">
                 {poll.options.map((option, index) => {
-                    const percent = totalVotes > 0 ? Math.round((option.votes / totalVotes) * 100) : 0; // isto foi roblox studio ball knowledge com healthbars
+                    const percent = totalVotes > 0 ? Math.round((option.votes / totalVotes) * 100) : 0; 
                     return (
                         <div key={index}>
                             <div className="border rounded d-flex justify-content-between align-items-center p-3">

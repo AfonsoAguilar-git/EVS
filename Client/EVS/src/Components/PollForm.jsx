@@ -15,8 +15,8 @@ function PollForm({ongetpolls, setCreatingPoll, setView, user, oncreatepoll}){
     e.preventDefault();
     setPolloptions([...polloptions, ""]);
     };
-    // temos de lowkenuinely adicionar uma cena para n ter 2 of the same options, out tipo formatar para q so tenha uma com esse nome qnd é criada idk arigato if not then tmb n faz mal
-    // faz uma poll com duas opçoes iguais and ull see warr i mean
+    
+    
     async function handleSubmit(e){
         e.preventDefault();
         const validOptions = polloptions.filter(opt => opt.trim() !== "");

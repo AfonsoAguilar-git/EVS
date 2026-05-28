@@ -1,14 +1,24 @@
 import { use, useState } from "react"
 
-function ManagePollcard({title, creator, active, onclosepoll, onopenpoll, userid, pollid, onSelect}){
+function ManagePollcard({title, creator, active, onclosepoll, onopenpoll, userid, pollid, onSelect, ondeletepoll}){
     
     const [isActive, setActive] = useState(active)
 
-    // muda aqui um jit para dar handle de both open and close or sum arigato
+    
 
     function handlepoll(){
         {isActive ? onclosepoll(pollid,userid) : onopenpoll(pollid,userid)}
-        setActive(!isActive) // change this if u want
+        setActive(!isActive) 
+    }
+
+    async function handledeletepoll() {
+            try {
+                await ondeletepoll(pollid, userid);
+                alert("Poll eliminada com sucesso!");
+            } catch (err) {
+                alert("Erro ao eliminar a poll.");
+                console.error(err);
+            }
     }
 
     return(
@@ -26,7 +36,7 @@ function ManagePollcard({title, creator, active, onclosepoll, onopenpoll, userid
                     <button className="btn btn-dark w-100" onClick={onSelect}>View</button>
                     <div className="btn-group">
                         <button className={`btn  w-100 ${isActive ? "btn-outline-warning" : "btn-outline-primary"}`} onClick={handlepoll}>{isActive ? "Close" : "Open"}</button>
-                        <button className="btn btn-outline-danger w-100">Delete</button>
+                        <button className="btn btn-outline-danger w-100" onClick={handledeletepoll} >Delete</button>
                     </div>
                 </div>
             </div>

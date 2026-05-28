@@ -45,6 +45,9 @@ class Poll(BaseModel):
     voters: List[int]
     is_active: bool
 
+class VoteData(BaseModel):
+    option_name: str
+    user_id: int
 
 
 @app.post("/signup")
@@ -98,7 +101,7 @@ async def create_poll(poll: PollCreate):
 
 
 @app.post("/polls/{poll_id}/vote")
-async def vote(poll_id: str, option_name: str, user_id: int):
+async def vote(poll_id: str, data: VoteData):
     poll = polls_collection.find_one({"_id": ObjectId(poll_id)})
     if not poll:
         raise HTTPException(status_code=404, detail="Urna não encontrada")
@@ -106,12 +109,12 @@ async def vote(poll_id: str, option_name: str, user_id: int):
     if not poll.get("is_active", True):
         raise HTTPException(status_code=400, detail="Esta votação já está encerrada")
 
-    if user_id in poll.get("voters", []):
+    if data.user_id in poll.get("voters", []):
         raise HTTPException(status_code=400, detail="Já votou nesta urna")
 
     polls_collection.update_one(
-        {"_id": ObjectId(poll_id), "options.name": option_name},
-        {"$inc": {"options.$.votes": 1}, "$push": {"voters": user_id}}
+        {"_id": ObjectId(poll_id), "options.name": data.option_name},
+        {"$inc": {"options.$.votes": 1}, "$push": {"voters": data.user_id}}
     )
     return {"message": "Voto registado"}
 
@@ -152,7 +155,6 @@ async def close_poll(poll_id: str, user_id: int):
     )
     return {"message": "Urna encerrada com sucesso"}
 
-# ik this aint my turf mas tp
 
 @app.patch("/polls/{poll_id}/open")
 async def open_poll(poll_id: str, user_id: int):

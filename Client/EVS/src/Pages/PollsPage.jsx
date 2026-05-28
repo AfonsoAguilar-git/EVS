@@ -2,8 +2,8 @@ import Navbar from "../Components/Navbar"
 import Pollcard from "../Components/Pollcard"
 import ViewPoll from "../Components/ViewPoll";
 import { useEffect } from "react";
-// i dont know if u wanred this mas mudei a logic para mostrar apenas polls de outros individuos
-function PollsPage({currentView, setView, isLoggedIn, user, onlogout, polls, ongetpolls, selectedPoll, setSelected}){
+
+function PollsPage({currentView, setView, isLoggedIn, user, onlogout, polls, ongetpolls, selectedPoll, setSelected, onvotepoll}){
     
     useEffect(() => {
         ongetpolls();
@@ -15,7 +15,7 @@ function PollsPage({currentView, setView, isLoggedIn, user, onlogout, polls, ong
     return(
         <section>
             <Navbar currentView={currentView} setView={setView} isLoggedIn={isLoggedIn} onlogout={onlogout}/>
-            {selectedPoll && <ViewPoll poll={selectedPoll} setSelected={setSelected} user={user}/>}
+            {selectedPoll && <ViewPoll poll={selectedPoll} setSelected={setSelected} user={user} onvotepoll={onvotepoll} />}
             <nav className="container-fluid p-4 pt-0">
                 <ul className="row m-0 p-0 row-cols-1 row-cols-sm-2 row-cols-lg-3 g-5">
                     {activepolls.map(poll => (

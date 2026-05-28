@@ -62,7 +62,7 @@ function usePolls(user){
             setError(err.message);
         }
     }
-    // ya muda isto se tiver a cometer um fatal sin
+   
     async function openpoll(pollId, userId){
         try{
             const response = await fetch(`http://localhost:8000/polls/${pollId}/open?user_id=${userId}`,
@@ -82,7 +82,49 @@ function usePolls(user){
         }
     }
 
-    return {polls,pollsloading, pollserror, getpolls, createpoll, closepoll, openpoll}
+
+    async function votepoll(pollId,option_name,user_id){
+        try{
+            const response = await fetch(`http://localhost:8000/polls/${pollId}/vote`,
+                {
+                headers:{
+                    "Content-Type": "application/json"
+                },
+                method: "POST",
+                body: JSON.stringify({option_name,user_id})
+            });
+        
+            const data = await response.json();
+            return data;
+        }
+        catch(err){
+            setError(err.message);
+        }
+    }
+
+
+
+    async function deletepoll(pollId, user_id){
+        try{
+            const response = await fetch(`http://localhost:8000/polls/${pollId}?user_id=${user_id}`,
+                {
+                headers:{
+                    "Content-Type": "application/json"
+                },
+                method: "DELETE",
+            });
+        
+            const data = await response.json();
+
+            await getpolls();
+            return data;
+        }
+        catch(err){
+            setError(err.message);
+        }
+    }
+
+    return {polls,pollsloading, pollserror, getpolls, createpoll, closepoll, openpoll, votepoll, deletepoll}
 }
 
 export default usePolls
