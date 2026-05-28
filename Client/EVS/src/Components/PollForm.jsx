@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function PollForm({setView, user, oncreatepoll}){ 
+function PollForm({ongetpolls, setCreatingPoll, setView, user, oncreatepoll}){ 
 
     const [title, setTitle] = useState("");
     const [polloptions, setPolloptions] = useState(["", ""]);
@@ -15,7 +15,8 @@ function PollForm({setView, user, oncreatepoll}){
     e.preventDefault();
     setPolloptions([...polloptions, ""]);
     };
-
+    // temos de lowkenuinely adicionar uma cena para n ter 2 of the same options, out tipo formatar para q so tenha uma com esse nome qnd é criada idk arigato if not then tmb n faz mal
+    // faz uma poll com duas opçoes iguais and ull see warr i mean
     async function handleSubmit(e){
         e.preventDefault();
         const validOptions = polloptions.filter(opt => opt.trim() !== "");
@@ -26,7 +27,8 @@ function PollForm({setView, user, oncreatepoll}){
         }
         try{
         await oncreatepoll(title,validOptions, user.user_id,user.username)
-        setView("ManagePolls");
+        setCreatingPoll(false);
+        ongetpolls();
 
         }catch(err){
             console.log(err);    
@@ -35,12 +37,13 @@ function PollForm({setView, user, oncreatepoll}){
     }
 
     return(
-        <form className="createPollCard p-4" onSubmit={handleSubmit}>
-            <div className="mt-2">
+        <form className="createPollCard modal-content p-4" onSubmit={handleSubmit}>
+            <h2 className="text-center mb-1">Create a Poll</h2>
+            <div className="mt-2 w-100 ">
                 <label className="form-label">Poll title</label>
                 <input type="text" className="form-control" value={title} onChange={(e) => setTitle(e.target.value)} required></input>
             </div>
-            <div className="mt-2">
+            <div className="mt-2 w-100 ">
                 <label className="form-label">Options</label>
                 <div className="d-flex flex-column gap-2">
                     {polloptions.map((option, index) => (
@@ -57,9 +60,9 @@ function PollForm({setView, user, oncreatepoll}){
                     <button className="btn btn-link text-dark text-decoration-none text-start" onClick={addOptionField}>+ Add option</button>
                 </div>
             </div>
-            <div className="d-flex flex-column justify-content-end gap-2 pt-2">
-                <button  type="submit" className="btn btn-dark">Create</button>
-                <button className="btn btn-outline-danger" onClick={() => setView("ManagePolls")}>Back</button>
+            <div className="d-flex flex-column w-100 justify-content-end gap-2 pt-2">
+                <button  type="submit" className="btn btn-dark w-100">Create</button>
+                <button className="btn btn-outline-danger w-100" onClick={() => {setCreatingPoll(false);ongetpolls()}}>Back</button>
             </div>
         </form>
     )

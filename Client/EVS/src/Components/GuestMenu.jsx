@@ -1,16 +1,14 @@
 function GuestMenu ({setView}) {
     return (
-        <ul className="navbar-nav ms-auto">
-            <li className="nav-item">
-                <button type="button" className="btn btn-dark my-1 my-md-0 mx-md-1" onClick={() => setView("SignUp")}>
+        <ul className="nav nav-underline navbar-nav align-items-end ms-auto pt-3 pt-md-0">
+            <li className="btn-group nav-item my-md-0 mx-md-1">
+                <button type="button" className="btn btn-dark border-end" onClick={() => setView("SignUp")}>
                     Sign Up
                 </button>
-            </li>
-            <li className="nav-item">
-                <button type="button" className="btn btn-dark my-1 my-md-0 mx-md-1" onClick={() => setView("Login")}>
+                <button type="button" className="btn btn-dark border-start" onClick={() => setView("Login")}>
                     Login
                 </button>
-            </li>  
+            </li>
         </ul>
     )
 }

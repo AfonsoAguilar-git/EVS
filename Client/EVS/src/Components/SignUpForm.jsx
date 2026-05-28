@@ -30,13 +30,13 @@ function SignUpForm({setView , signup, error}){
             <label className="form-label">Password</label>
             <input type="password" className="form-control" value={password} onChange={(e) => setPassword(e.target.value)}></input>
         </div>
-        <div className="container">
-            <div className="row p-2">
+        <div className="container d-flex flex-column gap-2 mb-4">
+            <div className="row">
                 <button href="#" type="submit" className="btn btn-dark my-1 my-sm-0 mx-sm-1">
                     Sign Up
                 </button>
             </div>
-            <div className="row p-2">
+            <div className="row">
                 <button href="#" type="button" className="btn btn-outline-dark my-1 my-sm-0 mx-sm-1" onClick={() => setView("Login")}>
                     Login
                 </button>

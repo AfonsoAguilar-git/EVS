@@ -62,9 +62,27 @@ function usePolls(user){
             setError(err.message);
         }
     }
-    
+    // ya muda isto se tiver a cometer um fatal sin
+    async function openpoll(pollId, userId){
+        try{
+            const response = await fetch(`http://localhost:8000/polls/${pollId}/open?user_id=${userId}`,
+                {
+                headers:{
+                    "Content-Type": "application/json"
+                },
+                method: "PATCH",
+            });
+        
+        
+        const data = await response.json();
+        return data;
+        }
+        catch(err){
+            setError(err.message);
+        }
+    }
 
-    return {polls,pollsloading, pollserror, getpolls, createpoll, closepoll}
+    return {polls,pollsloading, pollserror, getpolls, createpoll, closepoll, openpoll}
 }
 
 export default usePolls

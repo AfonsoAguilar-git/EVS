@@ -151,3 +151,21 @@ async def close_poll(poll_id: str, user_id: int):
         {"$set": {"is_active": False}}
     )
     return {"message": "Urna encerrada com sucesso"}
+
+# ik this aint my turf mas tp
+
+@app.patch("/polls/{poll_id}/open")
+async def open_poll(poll_id: str, user_id: int):
+
+    poll = polls_collection.find_one({"_id": ObjectId(poll_id)})
+    
+    if not poll:
+        raise HTTPException(status_code=404, detail="Urna não encontrada")
+    if poll["creator_id"] != user_id:
+        raise HTTPException(status_code=403, detail="Apenas o criador pode abrir a urna")
+
+    polls_collection.update_one(
+        {"_id": ObjectId(poll_id)},
+        {"$set": {"is_active": True}}
+    )
+    return {"message": "Urna aberta com sucesso"}

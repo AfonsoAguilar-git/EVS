@@ -1,7 +1,7 @@
 import GuestMenu from "./GuestMenu" 
 import UserMenu from "./UserMenu"
 
-function Navbar({setView, isLoggedIn, onlogout}){
+function Navbar({setView, currentView, isLoggedIn, onlogout}){
     return (
     <nav className="navbar navbar-expand-md bg-white border-bottom">
         <div className="container-fluid">
@@ -10,7 +10,7 @@ function Navbar({setView, isLoggedIn, onlogout}){
                 <span className="navbar-toggler-icon"></span>
             </button>
             <div className="collapse navbar-collapse" id="menu">
-                {isLoggedIn ? <UserMenu onlogout={onlogout} setView={setView} /> : <GuestMenu setView={setView}/>}
+                {isLoggedIn ? <UserMenu currentView={currentView} onlogout={onlogout} setView={setView} /> : <GuestMenu setView={setView}/>}
             </div>
         </div>
     </nav>

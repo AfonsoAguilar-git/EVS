@@ -1,26 +1,26 @@
 import Navbar from "../Components/Navbar"
 import Pollcard from "../Components/Pollcard"
+import ViewPoll from "../Components/ViewPoll";
 import { useEffect } from "react";
-
-function PollsPage({setView, isLoggedIn, onlogout, polls, ongetpolls}){
+// i dont know if u wanred this mas mudei a logic para mostrar apenas polls de outros individuos
+function PollsPage({currentView, setView, isLoggedIn, user, onlogout, polls, ongetpolls, selectedPoll, setSelected}){
     
     useEffect(() => {
-    ongetpolls();
-    }, []);
+        ongetpolls();
+        }, []
+    );
 
-    const activepolls = polls.filter(poll => poll.is_active === true);
+    const activepolls = polls.filter(poll => poll.is_active === true && poll.creator_id != user.user_id );
 
     return(
         <section>
-            <Navbar setView={setView} isLoggedIn={isLoggedIn} onlogout={onlogout}/>
-            <h1 className="pageTitle text-black text-center p-4 pb-0 fw-bold">Find Polls</h1>
+            <Navbar currentView={currentView} setView={setView} isLoggedIn={isLoggedIn} onlogout={onlogout}/>
+            {selectedPoll && <ViewPoll poll={selectedPoll} setSelected={setSelected} user={user}/>}
             <nav className="container-fluid p-4 pt-0">
                 <ul className="row m-0 p-0 row-cols-1 row-cols-sm-2 row-cols-lg-3 g-5">
                     {activepolls.map(poll => (
-                        <Pollcard key={poll._id} poll={poll} title={poll.title} creator={poll.creator_name}/>
+                        <Pollcard key={poll._id} title={poll.title} creator={poll.creator_name} onSelect={() => setSelected(poll)}/>
                     ))}
-
-                    
                 </ul>
             </nav>
         </section>

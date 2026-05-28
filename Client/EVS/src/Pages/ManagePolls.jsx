@@ -1,25 +1,31 @@
 import Navbar from "../Components/Navbar"
 import ManagePollcard from "../Components/ManagePollCard"
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import CreatePolls from "../Components/CreatePolls";
+import ViewPoll from "../Components/ViewPoll";
 
-function PollsPage({setView, isLoggedIn, onlogout, user, polls, ongetpolls, onclosepoll}){
+function PollsPage({currentView, setView, isLoggedIn, onlogout, user, polls, ongetpolls, onclosepoll, onopenpoll, createpoll, selectedPoll, setSelected}){
+    
     useEffect(() => {
         ongetpolls();
-        }, []);
-    
+        }, []
+    );
     
     const mypolls = polls.filter(poll => poll.creator_id === user?.user_id);
-
-    
+    const [creatingPoll, setCreatingPoll] = useState(false)
 
     return(
         <section>
-            <Navbar setView={setView} isLoggedIn={isLoggedIn} onlogout={onlogout}/>
-            <h1 className="pageTitle text-black text-center p-4 pb-0 fw-bold">Manage your Polls</h1>
-            <nav className="container-fluid p-4 pt-0">
+            <Navbar currentView={currentView} setView={setView} isLoggedIn={isLoggedIn} onlogout={onlogout}/>
+            {creatingPoll && <CreatePolls ongetpolls={ongetpolls} setCreatingPoll={setCreatingPoll} isLoggedIn={isLoggedIn} user={user} onlogout={onlogout} oncreatepoll={createpoll} />}
+            {selectedPoll && <ViewPoll poll={selectedPoll} setSelected={setSelected} user={user}/>}
+            <nav className="container-fluid d-flex flex-column p-4">
+                <button className="btn align-self-start btn-outline-success mx-4 mt-3" onClick={() => setCreatingPoll(true)}>
+                    + Create Poll
+                </button>
                 <ul className="row m-0 p-0 row-cols-1 row-cols-sm-2 row-cols-lg-3 g-5">
                     {mypolls.map(poll => (
-                        <ManagePollcard pollid={poll._id} title={poll.title} creator={poll.creator_name} userid={user.user_id} onclosepoll={onclosepoll}/>
+                        <ManagePollcard key={poll._id} pollid={poll._id} title={poll.title} creator={poll.creator_name} active={poll.is_active} userid={user.user_id} onclosepoll={onclosepoll} onopenpoll={onopenpoll} onSelect={() => setSelected(poll)}/>
                     ))}
                 </ul>
             </nav>
