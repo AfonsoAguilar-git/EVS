@@ -1,17 +1,20 @@
-# Programacao para internet
+# Electronic Voting System (EVS)
 
-## Elecctronic voting system
+An interactive full-stack web platform built for creating, managing, and participating in community polls. This project was developed as a final practical assignment for the **Internet Programming** (Programação para Internet) course.
+
+##  Tech Stack
+
+### Frontend (Client)
+- **Framework:** React (Functional Components, Hooks)
+- **Build Tool:** Vite
+- **Styling:** Bootstrap 5 & Custom CSS animations
 
 
-## how to run 
+### Backend (Server)
+- **Framework:** FastAPI 
+- **Database:** MongoDB (PyMongo)
+- **Validation Schema:** Pydantic Models
 
-- dependencies
+### Architecture
+- **Orchestration:** Docker Compose
 
-´´´
-npm install
-´´´
-
-- run react
-´´´
-npm run dev
-´´´
