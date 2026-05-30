@@ -95,6 +95,7 @@ function usePolls(user){
             });
         
             const data = await response.json();
+            await getpolls();
             return data;
         }
         catch(err){

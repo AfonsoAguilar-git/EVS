@@ -8,8 +8,11 @@ function LandingPage({setView, currentView, isLoggedIn, onlogout}) {
         </header>
         <section>
             <div className="container-fluid py-4 bg-secondary bg-opacity-10" >
-              <h1 className="pageTitle p-2 text-center fw-bold">Voting System</h1>
-              <p className="pageTitle text-center text-secondary-emphasis" >Welcome to the Voting System idk</p>
+              <h1 className="pageTitle p-2 text-center fw-bold">Electronic voting System</h1>
+              <p className="pageTitle text-center text-secondary-emphasis" >Welcome to EVS</p>
+              <p className="pageTitle text-center text-secondary-emphasis" >1. Join us by creating an account</p>
+              <p className="pageTitle text-center text-secondary-emphasis" >2. Vote on community polls</p>
+              <p className="pageTitle text-center text-secondary-emphasis" >3. Create your own polls for others to vote!</p>
             </div>
         </section>
         <footer>
