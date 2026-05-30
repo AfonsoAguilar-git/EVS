@@ -19,7 +19,7 @@ function PollsPage({currentView, setView, isLoggedIn, user, onlogout, polls, ong
             <nav className="container-fluid p-4 pt-0">
                 <ul className="row m-0 p-0 row-cols-1 row-cols-sm-2 row-cols-lg-3 g-5">
                     {activepolls.map(poll => (
-                        <Pollcard key={poll._id} title={poll.title} creator={poll.creator_name} onSelect={() => setSelected(poll)}/>
+                        <Pollcard key={poll._id} poll={poll} onSelect={() => setSelected(poll)}/>
                     ))}
                 </ul>
             </nav>

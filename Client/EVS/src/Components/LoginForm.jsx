@@ -7,7 +7,7 @@ function LoginForm({ setView, login ,error}){
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const sucesso = await login(username, password); // Usa o login que veio do App
+        const sucesso = await login(username, password);
         if (sucesso) {
             setView("PollsPage");
         }
@@ -26,7 +26,7 @@ function LoginForm({ setView, login ,error}){
         </div>
         <div className="mb-3">
             <label className="form-label">Password</label>
-            <input type="password" className="form-control" value={password} onChange={(e) => setPassword(e.target.value)}></input>
+            <input type="password" className="form-control" value={password} onChange={(e) => setPassword(e.target.value)} required></input>
         </div>
         <div className="container d-flex flex-column gap-2 mb-4">
             <div className="row">

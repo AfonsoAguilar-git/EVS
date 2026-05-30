@@ -1,10 +1,11 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
+from pydantic import BaseModel, Field, field_validator
 from typing import List, Optional
 from Server.database import users_collection, polls_collection
 from bson import ObjectId
-import random
+import time
+import uuid
 
 app = FastAPI(title="SVE - Sistema de Votação Eletrónica")
 
@@ -21,16 +22,50 @@ app.add_middleware(
 )
 
 
+
+def generate_secure_int_id() -> int:
+    timestamp = int(time.time() * 100000)
+    random_suffix = uuid.uuid4().int % 10000
+    return int(f"{timestamp}{random_suffix}") % 100000000
+
+
 class User(BaseModel):
     user_id: Optional[int] = None
-    username: str
-    password: str
+    username: str = Field(..., min_length=3, max_length=30)
+    password: str = Field(..., min_length=4)
+
+    @field_validator('username')
+    def username_whitespace(cls, v):
+        if not v.strip():
+            raise ValueError('O username não pode ser composto apenas por espaços em branco')
+        return v.strip()
+    
+    
 
 class PollCreate(BaseModel):
-    title: str
+    title: str = Field(..., min_length=4, max_length=150)
     options: List[str]
     creator_id: int
-    creator_name: str
+    creator_name: str = Field(..., min_length=3)
+
+    @field_validator('title')
+    def title_whitespace(cls, v):
+        if not v.strip():
+            raise ValueError('O título da votação não pode estar vazio')
+        return v.strip()
+
+    @field_validator('options')
+    def validate_options_list(cls, v):
+        cleaned_options = [opt.strip() for opt in v if opt.strip()]
+        
+        if len(cleaned_options) < 2:
+            raise ValueError('A urna necessita de pelo menos 2 opções válidas preenchidas')
+        
+        lowercase_options = [opt.lower() for opt in cleaned_options]
+        if len(lowercase_options) != len(set(lowercase_options)):
+            raise ValueError('Não são permitidas opções duplicadas na mesma urna')
+            
+        return cleaned_options
 
 class LoginData(BaseModel):
     username: str
@@ -46,7 +81,7 @@ class Poll(BaseModel):
     is_active: bool
 
 class VoteData(BaseModel):
-    option_name: str
+    option_name: str 
     user_id: int
 
 
@@ -55,8 +90,10 @@ async def create_user(user_in: User):
     if users_collection.find_one({"username": user_in.username}):
         raise HTTPException(status_code=400, detail="Este utilizador já existe")
     
+    secure_id = generate_secure_int_id()
+
     user_dict = {
-        "user_id": random.randint(1000, 9999),
+        "user_id": secure_id,
         "username": user_in.username,
         "password": user_in.password
     }
@@ -86,8 +123,10 @@ async def login(data: LoginData):
 async def create_poll(poll: PollCreate):
     formatted_options = [{"name": opt, "votes": 0} for opt in poll.options]
     
+    secure_poll_id = generate_secure_int_id()
+
     new_poll = {
-        "poll_id": random.randint(1000, 9999),
+        "poll_id": secure_poll_id,
         "title": poll.title,
         "creator_id": poll.creator_id,
         "creator_name":poll.creator_name,
@@ -97,7 +136,7 @@ async def create_poll(poll: PollCreate):
     }
     
     result = polls_collection.insert_one(new_poll)
-    return {"id": str(result.inserted_id), "is_active": True, "message": "Urna criada"}
+    return {"id": str(result.inserted_id),"poll_id":secure_poll_id, "is_active": True, "message": "Urna criada"}
 
 
 @app.post("/polls/{poll_id}/vote")

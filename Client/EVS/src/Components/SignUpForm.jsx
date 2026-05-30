@@ -28,7 +28,7 @@ function SignUpForm({setView , signup, error}){
         </div>
         <div className="mb-3">
             <label className="form-label">Password</label>
-            <input type="password" className="form-control" value={password} onChange={(e) => setPassword(e.target.value)}></input>
+            <input type="password" className="form-control" value={password} onChange={(e) => setPassword(e.target.value)} required></input>
         </div>
         <div className="container d-flex flex-column gap-2 mb-4">
             <div className="row">

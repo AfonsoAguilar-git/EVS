@@ -25,7 +25,7 @@ function PollsPage({currentView, setView, isLoggedIn, onlogout, user, polls, ong
                 </button>
                 <ul className="row m-0 p-0 row-cols-1 row-cols-sm-2 row-cols-lg-3 g-5">
                     {mypolls.map(poll => (
-                        <ManagePollcard key={poll._id} pollid={poll._id} title={poll.title} creator={poll.creator_name} active={poll.is_active} userid={user.user_id} onclosepoll={onclosepoll} onopenpoll={onopenpoll} ondeletepoll={ondeletepoll} onSelect={() => setSelected(poll)}/>
+                        <ManagePollcard key={poll._id} poll={poll} userid={user.user_id} onclosepoll={onclosepoll} onopenpoll={onopenpoll} ondeletepoll={ondeletepoll} onSelect={() => setSelected(poll)}/>
                     ))}
                 </ul>
             </nav>

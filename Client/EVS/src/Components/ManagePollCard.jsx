@@ -1,19 +1,19 @@
 import { use, useState } from "react"
 
-function ManagePollcard({title, creator, active, onclosepoll, onopenpoll, userid, pollid, onSelect, ondeletepoll}){
+function ManagePollcard({poll, onclosepoll, onopenpoll, userid, onSelect, ondeletepoll}){
     
-    const [isActive, setActive] = useState(active)
+    const [isActive, setActive] = useState(poll.is_active)
 
     
 
     function handlepoll(){
-        {isActive ? onclosepoll(pollid,userid) : onopenpoll(pollid,userid)}
+        {isActive ? onclosepoll(poll._id,userid) : onopenpoll(poll._id,userid)}
         setActive(!isActive) 
     }
 
     async function handledeletepoll() {
             try {
-                await ondeletepoll(pollid, userid);
+                await ondeletepoll(poll._id, userid);
                 alert("Poll eliminada com sucesso!");
             } catch (err) {
                 alert("Erro ao eliminar a poll.");
@@ -25,8 +25,8 @@ function ManagePollcard({title, creator, active, onclosepoll, onopenpoll, userid
         <li className="col list-unstyled align-self-center">
             <div className="PollCard p-3 d-flex flex-column overflow-hidden">
                 <div className="my-2 align-self-start">
-                    <h1 className="text-start">{title}</h1>
-                    <h5 className="text-start">by {creator}</h5>
+                    <h1 className="text-start">{poll.title}</h1>
+                    <h5 className="text-start">by {poll.creator_name}</h5>
                     <div className="d-flex align-items-center gap-2">
                         {isActive && <span className="spinner-border spinner-border-sm text-primary"></span>}
                         <p className={`text-center m-0 ${isActive ? "text-primary" : "text-warning" }`}>{isActive ? "Opened" : "Closed"}</p>

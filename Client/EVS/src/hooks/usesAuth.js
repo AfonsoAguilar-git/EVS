@@ -33,7 +33,7 @@ function useAuth() {
     }
   
 
-    // 2. Função de Login
+   
     async function login(username, password) {
         setLoading(true)
         setError(null)
