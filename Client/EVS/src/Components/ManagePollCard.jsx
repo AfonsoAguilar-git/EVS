@@ -14,7 +14,6 @@ function ManagePollcard({poll, onclosepoll, onopenpoll, userid, onSelect, ondele
     async function handledeletepoll() {
             try {
                 await ondeletepoll(poll._id, userid);
-                alert("Poll eliminada com sucesso!");
             } catch (err) {
                 alert("Erro ao eliminar a poll.");
                 console.error(err);

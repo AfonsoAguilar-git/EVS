@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react"
 
 function useAuth() {
-    const [user, setUser] = useState(null)
+    const [user, setUser] = useState(() => {
+        const savedUser = localStorage.getItem("sve_user");
+        return savedUser ? JSON.parse(savedUser) : null;
+    })
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
 
@@ -22,6 +25,7 @@ function useAuth() {
             }
 
             setUser(data)
+            localStorage.setItem("sve_user", JSON.stringify(data));
             return true
 
         } catch (err) {
@@ -50,7 +54,7 @@ function useAuth() {
             }
 
             setUser(data)
-            
+            localStorage.setItem("sve_user", JSON.stringify(data));
             return true 
         } catch (err) {
             setError(err.message)
@@ -63,6 +67,7 @@ function useAuth() {
    
     function logout() {
         setUser(null)
+        localStorage.removeItem("sve_user");
        
     }
 

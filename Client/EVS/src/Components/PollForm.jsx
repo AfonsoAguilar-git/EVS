@@ -31,6 +31,7 @@ function PollForm({ongetpolls, setCreatingPoll, setView, user, oncreatepoll}){
         ongetpolls();
 
         }catch(err){
+            alert(`Não foi possível criar a urna: ${err.message}`);
             console.log(err);    
         }
         

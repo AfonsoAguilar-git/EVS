@@ -36,11 +36,24 @@ function usePolls(user){
             });
         
             const data = await response.json();
+            if (!response.ok) {
+            
+            if (response.status === 422 && data.detail) {
+                const msg = Array.isArray(data.detail) 
+                    ? data.detail.map(err => err.msg).join(", ") 
+                    : data.detail;
+                throw new Error(msg);
+            }
+            throw new Error(data.detail || "Erro ao criar a votação");
+        }
+
             return data;
         
         }
         catch(err){
-            setError(err.message);
+            setPollsError(err.message);
+            alert(`Não foi possível criar a urna: ${err.message}`);
+            throw err
         }
     }
 
