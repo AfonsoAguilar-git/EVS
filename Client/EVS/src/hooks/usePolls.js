@@ -51,8 +51,7 @@ function usePolls(user){
         
         }
         catch(err){
-            setPollsError(err.message);
-            alert(`Não foi possível criar a urna: ${err.message}`);
+            setError(err.message);
             throw err
         }
     }

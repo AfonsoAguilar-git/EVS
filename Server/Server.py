@@ -123,6 +123,12 @@ async def login(data: LoginData):
 async def create_poll(poll: PollCreate):
     formatted_options = [{"name": opt, "votes": 0} for opt in poll.options]
     
+    if polls_collection.find_one({"title": poll.title}):
+        raise HTTPException(
+            status_code=400, 
+            detail="Já existe uma votação com esse título. Escolha um nome diferente."
+        )
+    
     secure_poll_id = generate_secure_int_id()
 
     new_poll = {
