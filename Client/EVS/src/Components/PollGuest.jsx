@@ -35,7 +35,7 @@ function PollGuest({poll, setSelected , onvotepoll, user}){
             </div>
             <div className="container-fluid d-flex flex-column gap-2">
                 <button className="btn btn-success w-100" disabled={!selectedOption || hasVoted} onClick={handlevote}>{hasVoted ? "Already Voted" : "Submit vote"}</button>
-                <button className="btn btn-outline-danger w-100" onClick={() => setSelected(null)}>Back</button>
+                <button className="btn btn-outline-dark w-100" onClick={() => setSelected(null)}>Back</button>
             </div>
         </div>
     )
