@@ -40,7 +40,7 @@ function App() {
       {currentView === "LandingPage" && (<LandingPage currentView={currentView} setView={setCurrentView} isLoggedIn={isLoggedIn} user={user} onlogout={logout} />)}
       {(currentView === "Login" || currentView === "SignUp") && (<AuthPage setView={setCurrentView} currentView={currentView}  onLogin={login} onSignup={signup} authError={error}/>)}
       {currentView === "PollsPage" && (<PollsPage currentView={currentView} setView={setCurrentView} isLoggedIn={isLoggedIn} user={user} onlogout={logout} polls={polls} ongetpolls={getpolls} selectedPoll={selectedPoll} setSelected={setSelectedPoll} onvotepoll={votepoll}/>)}
-      {currentView === "ManagePolls" && (<ManagePolls currentView={currentView} setView={setCurrentView} isLoggedIn={isLoggedIn} user={user} onlogout={logout} polls={polls} ongetpolls={getpolls} onclosepoll={closepoll} onopenpoll={openpoll} selectedPoll={selectedPoll} setSelected={setSelectedPoll} oncreatepoll={createpoll} ondeletepoll={deletepoll} />)}
+      {currentView === "ManagePolls" && (<ManagePolls currentView={currentView} setView={setCurrentView} isLoggedIn={isLoggedIn} user={user} onlogout={logout} polls={polls} ongetpolls={getpolls} onclosepoll={closepoll} onopenpoll={openpoll} selectedPoll={selectedPoll} setSelected={setSelectedPoll} oncreatepoll={createpoll} ondeletepoll={deletepoll} pollerror={pollserror} />)}
     </section>
   );
   

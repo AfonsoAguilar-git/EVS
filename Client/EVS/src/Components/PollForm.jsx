@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function PollForm({ongetpolls, setCreatingPoll, setView, user, oncreatepoll}){ 
+function PollForm({ongetpolls, setCreatingPoll, setView, user, oncreatepoll, pollerror}){ 
 
     const [title, setTitle] = useState("");
     const [polloptions, setPolloptions] = useState(["", ""]);
@@ -31,7 +31,6 @@ function PollForm({ongetpolls, setCreatingPoll, setView, user, oncreatepoll}){
         ongetpolls();
 
         }catch(err){
-            alert(`Não foi possível criar a urna: ${err.message}`);
             console.log(err);    
         }
         
@@ -40,6 +39,9 @@ function PollForm({ongetpolls, setCreatingPoll, setView, user, oncreatepoll}){
     return(
         <form className="createPollCard modal-content p-4" onSubmit={handleSubmit}>
             <h2 className="text-center mb-1">Create a Poll</h2>
+
+            {pollerror && <div className="alert alert-danger">{pollerror}</div>}
+
             <div className="mt-2 w-100 ">
                 <label className="form-label">Poll title</label>
                 <input type="text" className="form-control" value={title} onChange={(e) => setTitle(e.target.value)} required></input>

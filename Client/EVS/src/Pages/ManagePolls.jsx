@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import CreatePolls from "../Components/CreatePolls";
 import ViewPoll from "../Components/ViewPoll";
 
-function PollsPage({currentView, setView, isLoggedIn, onlogout, user, polls, ongetpolls, onclosepoll, onopenpoll, oncreatepoll, selectedPoll, setSelected, ondeletepoll}){
+function PollsPage({currentView, setView, isLoggedIn, onlogout, user, polls, ongetpolls, onclosepoll, onopenpoll, oncreatepoll, selectedPoll, setSelected, ondeletepoll,pollerror}){
     
     useEffect(() => {
         ongetpolls();
@@ -17,7 +17,7 @@ function PollsPage({currentView, setView, isLoggedIn, onlogout, user, polls, ong
     return(
         <section>
             <Navbar currentView={currentView} setView={setView} isLoggedIn={isLoggedIn} onlogout={onlogout}/>
-            {creatingPoll && <CreatePolls ongetpolls={ongetpolls} setCreatingPoll={setCreatingPoll} isLoggedIn={isLoggedIn} user={user} onlogout={onlogout} oncreatepoll={oncreatepoll} />}
+            {creatingPoll && <CreatePolls ongetpolls={ongetpolls} setCreatingPoll={setCreatingPoll} isLoggedIn={isLoggedIn} user={user} onlogout={onlogout} pollerror={pollerror} oncreatepoll={oncreatepoll} />}
             {selectedPoll && <ViewPoll poll={selectedPoll} setSelected={setSelected} user={user}/>}
             <nav className="container-fluid d-flex flex-column p-4">
                 <button className="btn align-self-start btn-outline-success mx-4 mt-3" onClick={() => setCreatingPoll(true)}>
