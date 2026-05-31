@@ -25,10 +25,16 @@ function SignUpForm({setView , signup, error}){
         <div className="mb-3">
             <label className="form-label">Username</label>
             <input type="text" className="form-control" value={username} onChange={(e) => setUsername(e.target.value)} required></input>
+            <div className="form-text text-muted font-sans-serif" style={{ fontSize: "0.8rem" }}>
+        Must be between 3 and 30 characters.
+            </div>
         </div>
         <div className="mb-3">
             <label className="form-label">Password</label>
             <input type="password" className="form-control" value={password} onChange={(e) => setPassword(e.target.value)} required></input>
+            <div className="form-text text-muted font-sans-serif" style={{ fontSize: "0.8rem" }}>
+        Must have atleast 4 characters.
+            </div>
         </div>
         <div className="container d-flex flex-column gap-2 mb-4">
             <div className="row">

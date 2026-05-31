@@ -43,6 +43,9 @@ function PollForm({ongetpolls, setCreatingPoll, setView, user, oncreatepoll}){
             <div className="mt-2 w-100 ">
                 <label className="form-label">Poll title</label>
                 <input type="text" className="form-control" value={title} onChange={(e) => setTitle(e.target.value)} required></input>
+                <div className="form-text text-muted font-sans-serif" style={{ fontSize: "0.8rem" }}>
+        Must have atleast 4 characters.
+            </div>
             </div>
             <div className="mt-2 w-100 ">
                 <label className="form-label">Options</label>
@@ -59,6 +62,9 @@ function PollForm({ongetpolls, setCreatingPoll, setView, user, oncreatepoll}){
                         />
                     ))}
                     <button className="btn btn-link text-dark text-decoration-none text-start" onClick={addOptionField}>+ Add option</button>
+                    <div className="form-text text-muted font-sans-serif" style={{ fontSize: "0.8rem" }}>
+                    Every option must be different
+            </div>
                 </div>
             </div>
             <div className="d-flex flex-column w-100 justify-content-end gap-2 pt-2">
