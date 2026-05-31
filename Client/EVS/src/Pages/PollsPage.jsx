@@ -5,17 +5,23 @@ import {useState, useEffect } from "react";
 
 function PollsPage({currentView, setView, isLoggedIn, user, onlogout, polls, ongetpolls, selectedPoll, setSelected, onvotepoll}){
     
-    const [activeTab, setActiveTab] = useState("all");
+    const [activeTab, setActiveTab] = useState("not_voted");
 
     useEffect(() => {
         ongetpolls();
         }, []
     );
     const filteredPolls = polls.filter(poll => {
-        if (activeTab === "all") {
-            return poll.is_active === true && poll.creator_id !== user?.user_id;
+        const isCommunityPoll = poll.is_active === true && poll.creator_id !== user?.user_id;
+        if (!isCommunityPoll) return false;
+
+        const votersList = poll.voters || [];
+        const hasUserVoted = votersList.includes(user?.user_id);
+
+        if (activeTab === "not_voted") {
+            return !hasUserVoted;
         } else {
-            return poll.creator_id === user?.user_id;
+            return hasUserVoted;
         }
     });
     return(
@@ -28,13 +34,13 @@ function PollsPage({currentView, setView, isLoggedIn, user, onlogout, polls, ong
                 <ul className="nav nav-tabs mb-4">
                     <li className="nav-item">
                         <button 
-                            className={`nav-link ${activeTab === "all" ? "active fw-bold text-primary" : "text-secondary"}`}
-                            onClick={() => setActiveTab("all")}> Community Polls </button>
+                            className={`nav-link ${activeTab === "not_voted" ? "active fw-bold text-primary" : "text-secondary"}`}
+                            onClick={() => setActiveTab("not_voted")}> Pending Polls </button>
                     </li>
                     <li className="nav-item">
                         <button 
-                            className={`nav-link ${activeTab === "mine" ? "active fw-bold text-primary" : "text-secondary"}`}
-                            onClick={() => setActiveTab("mine")}>My Polls</button>
+                            className={`nav-link ${activeTab === "voted" ? "active fw-bold text-primary" : "text-secondary"}`}
+                            onClick={() => setActiveTab("voted")}>Voted Polls</button>
                     </li>
                 </ul>
             </div>
