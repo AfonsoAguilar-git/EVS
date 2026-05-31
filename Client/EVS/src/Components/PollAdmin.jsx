@@ -16,11 +16,29 @@ function PollAdmin({poll, setSelected}){
             <div className="container-fluid d-flex flex-column gap-2 mb-4">
                 {poll.options.map((option, index) => {
                     const percent = totalVotes > 0 ? Math.round((option.votes / totalVotes) * 100) : 0; 
+                    let barColor = "bg-danger";
+                    if (percent >= 20 && percent < 50) {
+                        barColor = "bg-warning"; 
+                    } else if (percent >= 50 && percent < 75) {
+                        barColor = "bg-primary"; 
+                    } else if (percent >= 75) {
+                        barColor = "bg-success"; 
+                    }
                     return (
                         <div key={index}>
                             <div className="border rounded d-flex justify-content-between align-items-center p-3">
                                 <div className="text-center">{option.name}</div>
                                 <div className="text-secondary">{option.votes} votes / {percent}%</div>
+                            </div>
+                            <div className="progress" style={{ height: "12px" }}>
+                                <div 
+                                    className={`progress-bar progress-bar-striped progress-bar-animated ${barColor}`} 
+                                    role="progressbar" 
+                                    style={{ width: `${percent}%` }} 
+                                    aria-valuenow={percent} 
+                                    aria-valuemin="0" 
+                                    aria-valuemax="100"
+                                ></div>
                             </div>
                         </div>
                     );

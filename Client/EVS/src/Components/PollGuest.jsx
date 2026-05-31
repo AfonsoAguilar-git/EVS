@@ -26,7 +26,7 @@ function PollGuest({poll, setSelected , onvotepoll, user}){
                 <h4 className="mb-0">By {poll.creator_name}</h4>
             </div>
             <div className="container-fluid d-flex flex-column gap-2 m-4">
-                Pick an option.
+                {hasVoted ? "Voted Registered!" : "Pick an option."}
                 {poll.options.map((option, index) => (
                     <button key={index} className={`btn text-start ${selectedOption === option.name ? "btn-primary" : "btn-outline-secondary"}`} onClick={() => setSelectedOption(option.name)}>
                         {option.name}
