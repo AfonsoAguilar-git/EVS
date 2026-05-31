@@ -26,11 +26,11 @@ function PollAdmin({poll, setSelected}){
                     }
                     return (
                         <div key={index}>
-                            <div className="border rounded d-flex justify-content-between align-items-center p-3">
+                            <div className="border rounded-top d-flex justify-content-between align-items-center p-3">
                                 <div className="text-center">{option.name}</div>
                                 <div className="text-secondary">{option.votes} votes / {percent}%</div>
                             </div>
-                            <div className="progress" style={{ height: "12px" }}>
+                            <div className="progress rounded-0" style={{ height: "6px" }}>
                                 <div 
                                     className={`progress-bar progress-bar-striped progress-bar-animated ${barColor}`} 
                                     role="progressbar" 
