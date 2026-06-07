@@ -1,4 +1,4 @@
-function Pollcard({poll, onSelect}){
+function Pollcard({poll, onSelect, activeTab}){
     return(
         <li className="col list-unstyled align-self-center">
             <div className="PollCard p-3 d-flex flex-column overflow-hidden">
@@ -7,7 +7,7 @@ function Pollcard({poll, onSelect}){
                     <h5 className="text-start">by {poll.creator_name}</h5>
                 </div>
                 <div className="mt-auto w-100 m-2">
-                    <button className="btn btn-dark w-100" onClick={onSelect}>Participate</button>
+                    <button className="btn btn-dark w-100" onClick={onSelect}>{activeTab === "voted"? "View": "Participate"} </button>
                 </div>
             </div>
         </li>
